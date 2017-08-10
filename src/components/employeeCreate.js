@@ -1,40 +1,33 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { employeeUpdate } from '../actions';
+import { employeeUpdate, employeeCreate } from '../actions';
 
 import Card from './common/card';
 import CardSection from './common/cardSection';
-import Input from './common/input';
 import Button from './common/button';
 
+import EmployeeForm from './employeeForm';
+
 class EmployeeCreate extends Component {
+
+    onButtonPress() {
+        const { name, phone, shift } = this.props;
+
+        this.props.employeeCreate({ name, phone, shift: shift || 'Monday' });
+        //jos shift ei maaritelty, niin arvoksi monday
+    }
+                // ALEMPI ...this.props lahettaa kaiken EmployeeCreate classin propsit employeeFormille
     render() {
+        console.log(this.props.employee);
         return (
             <Card>
+                <EmployeeForm {...this.props} />
                 <CardSection>
-                    <Input
-                        label="name"
-                        placeholder="Jane"
-                        value={this.props.name}
-                        onChangeText={text => this.props.employeeUpdate({ props: 'name', value: text })}
-                    />
-                </CardSection>
-
-                <CardSection>
-                    <Input
-                        label="phone"
-                        placeholder="555-55-555"
-                        value={this.props.phone}
-                        onChangeText={text => this.props.employeeUpdate({ props: 'phone', value: text })}
-                    />
-                </CardSection>
-
-                <CardSection>
-
-                </CardSection>
-
-                <CardSection>
-                    <Button>Save</Button>
+                    <Button
+                        onPressButton={this.onButtonPress.bind(this)}
+                    >
+                        Save
+                    </Button>
                 </CardSection>
             </Card>
         );
@@ -45,8 +38,8 @@ function mapStateToProps(state) {
     const { name, phone, shift } = state.employeeForm;
 
     return { name, phone, shift }
-
-
 }
 
-export default connect(mapStateToProps, { employeeUpdate })(EmployeeCreate);
+export default connect(mapStateToProps, {
+    employeeUpdate, employeeCreate
+})(EmployeeCreate);

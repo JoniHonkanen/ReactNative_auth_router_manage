@@ -4,6 +4,7 @@ import LoginForm from './components/loginForm';
 
 import EmployeeList from './components/employeeList';
 import EmployeeCreate from './components/employeeCreate';
+import EmployeeEdit from './components/employeeEdit';
 
 const RouterComponent = () => {
     return (
@@ -32,6 +33,11 @@ const RouterComponent = () => {
                     component={EmployeeCreate}
                     title="Create Employee"
                     sceneStyle={{ paddingTop: 65 }}
+                />
+                <Scene
+                    key="employeeEdit"
+                    component={EmployeeEdit}
+                    title="Edit employee"
                 />
             </Scene>
         </Router>

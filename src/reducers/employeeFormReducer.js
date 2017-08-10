@@ -1,5 +1,7 @@
 import {
-    EMPLOYEE_UPDATE
+    EMPLOYEE_UPDATE,
+    EMPLOYEE_CREATE,
+    EMPLOYEE_SAVE_SUCCESS
 } from '../actions/types';
 
 const INTIAL_STATE = {
@@ -11,7 +13,11 @@ export default (state = INTIAL_STATE, action) => {
         case EMPLOYEE_UPDATE:
             // action.payload === {prop: 'name', value: 'jane'}
             // alempi ei ole array, vaan arvo muuttuu lennossa
-            return { ...state, [action.payload.prop]: action.payload.value }
+            return { ...state, [action.payload.props]: action.payload.value }
+        case EMPLOYEE_CREATE:
+            return INTIAL_STATE;
+        case EMPLOYEE_SAVE_SUCCESS:
+            return INTIAL_STATE;
         default:
             return state;
     }
